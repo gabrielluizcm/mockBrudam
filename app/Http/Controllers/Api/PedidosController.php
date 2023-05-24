@@ -18,6 +18,9 @@ class PedidosController extends Controller
     public function create(Request $request)
     {
         try {
+            if ($request->valor_pedido < 0 || $request->valor_frete < 0)
+                throw new \Exception('Verifique os valores: ambos devem ser maiores ou iguais a zero');
+
             $pedido = new Pedidos();
             $pedido->id_cliente = $request->id_cliente;
             $pedido->data_entrega = $request->data_entrega;
