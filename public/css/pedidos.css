@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: #f0f0f0;
+}
+
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0a0a0a;
+}
+
+.content {
+    width: 80%;
+    background: #2a2a2a;
+    background: linear-gradient(25deg, #2a2a2a 0%, #3a3a3a 100%);
+    border-radius: 30px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.content h1 {
+    width: 100%;
+}
+
+.loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ----------------------- LOADER FROM https://uiverse.io/G4b413l/jolly-kangaroo-36 --------------------------- */
+
+.newtons-cradle {
+    --uib-size: 50px;
+    --uib-speed: 1.2s;
+    --uib-color: #ff811b;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--uib-size);
+    height: var(--uib-size);
+}
+
+.newtons-cradle__dot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 25%;
+    transform-origin: center top;
+}
+
+.newtons-cradle__dot::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 25%;
+    border-radius: 50%;
+    background-color: var(--uib-color);
+}
+
+.newtons-cradle__dot:first-child {
+    animation: swing var(--uib-speed) linear infinite;
+}
+
+.newtons-cradle__dot:last-child {
+    animation: swing2 var(--uib-speed) linear infinite;
+}
+
+@keyframes swing {
+    0% {
+        transform: rotate(0deg);
+        animation-timing-function: ease-out;
+    }
+
+    25% {
+        transform: rotate(70deg);
+        animation-timing-function: ease-in;
+    }
+
+    50% {
+        transform: rotate(0deg);
+        animation-timing-function: linear;
+    }
+}
+
+@keyframes swing2 {
+    0% {
+        transform: rotate(0deg);
+        animation-timing-function: linear;
+    }
+
+    50% {
+        transform: rotate(0deg);
+        animation-timing-function: ease-out;
+    }
+
+    75% {
+        transform: rotate(-70deg);
+        animation-timing-function: ease-in;
+    }
+}
