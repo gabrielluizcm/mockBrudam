@@ -72,6 +72,10 @@ body {
     color: var(--faux-black);
 }
 
+.modal-content input[type="number"] {
+    text-align: right;
+}
+
 .hidden {
     display: none;
 }

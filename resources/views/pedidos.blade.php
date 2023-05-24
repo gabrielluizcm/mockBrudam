@@ -58,7 +58,7 @@
 
     <div class="modal fade" id="modalNovoPedido" tabindex="-1" aria-labelledby="modalNovoPedidoLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalNovoPedidoLabel">Novo pedido</h5>
@@ -93,7 +93,7 @@
                                             <span class="input-group-text">R$</span>
                                         </div>
                                         <input type="number" name="valor_pedido" id="valor_pedido"
-                                            class="form-control">
+                                            class="form-control" min=0>
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +104,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">R$</span>
                                         </div>
-                                        <input type="number" name="valor_frete" id="valor_frete" class="form-control">
+                                        <input type="number" name="valor_frete" id="valor_frete" class="form-control" min=0>
                                     </div>
                                 </div>
                             </div>
