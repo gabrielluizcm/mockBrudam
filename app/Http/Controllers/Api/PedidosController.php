@@ -25,9 +25,9 @@ class PedidosController extends Controller
             $pedido->valor_frete = $request->valor_frete;
             $pedido->save();
 
-            return response()->json($pedido);
-        } catch (\Throwable $th) {
-            return response()->json($th->getMessage(), $th->getCode());
+            return response()->json($pedido, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
         }
     }
 }

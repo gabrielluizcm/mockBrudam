@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="css/pedidos.css" />
 </head>
 
@@ -31,17 +32,6 @@
                 </tr>
             </thead>
             <tbody>
-                <template id="templateRowPedido">
-                    <tr>
-                        <td>{id}</th>
-                        <td>{cliente}</th>
-                        <td>{data_entrega}</th>
-                        <td>{valor_pedido}</th>
-                        <td>{valor_frete}</th>
-                        <td>{data_criacao}</th>
-                        <td>{data_atualizacao}</th>
-                    </tr>
-                </template>
             </tbody>
         </table>
         <div class="loader">
@@ -53,6 +43,17 @@
                 <div class="newtons-cradle__dot"></div>
             </div>
         </div>
+        <template id="templateRowPedido">
+            <tr>
+                <td>{id}</th>
+                <td>{cliente}</th>
+                <td>{data_entrega}</th>
+                <td>{valor_pedido}</th>
+                <td>{valor_frete}</th>
+                <td>{data_criacao}</th>
+                <td>{data_atualizacao}</th>
+            </tr>
+        </template>
     </div>
 
     <div class="modal fade" id="modalNovoPedido" tabindex="-1" aria-labelledby="modalNovoPedidoLabel"
@@ -71,7 +72,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="cliente">Cliente</label>
-                                    <select name="cliente" id="cliente" class="form-control">
+                                    <select name="id_cliente" id="id_cliente" class="form-control">
                                         @foreach ($clientes as $cliente)
                                             <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
                                         @endforeach
@@ -112,7 +113,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-primary" onclick="submitNovoPedido()">Salvar</button>
                 </div>
             </div>
         </div>
@@ -124,21 +125,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
     </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         window.onload = () => {
-            const loader = document.querySelector('.loader');
-            const endpoint = '{{ env('APP_URL') }}/api/pedidos';
-
-            fetch(endpoint)
-                .then(response => response.json())
-                .then(data => renderPedidos(data))
-                .catch(err => {
-                    console.error(err);
-                    alert('Não foi possível recuperar os pedidos');
-                })
-                .finally(() => {
-                    loader.remove();
-                });
+            buscaPedidos();
         }
 
         function renderPedidos(pedidos) {
@@ -168,6 +159,60 @@
             });
 
             return BRL.format(valor);
+        }
+
+        function submitNovoPedido() {
+            const form = document.querySelector('#formNovoPedido');
+            const formData = new FormData(form);
+            const endpoint = '{{ env('APP_URL') }}/api/pedido';
+
+            axios.post(endpoint, formData)
+                .then(response => {
+                    Toastify({
+                        text: 'Pedido salvo com sucesso. Os dados gerados podem ser verificados no Console.',
+                        duration: 3000
+                    }).showToast();
+                    console.log(response.data);
+
+                    atualizaPedidos();
+                })
+                .catch(err => {
+                    Toastify({
+                        text: 'Não foi possível salvar o pedido. Verifique detalhes no Console',
+                        duration: 3000
+                    }).showToast();
+                    console.error(err);
+                })
+        }
+
+        function buscaPedidos() {
+            const loader = document.querySelector('.loader');
+            const endpoint = '{{ env('APP_URL') }}/api/pedidos';
+
+            axios.get(endpoint)
+                .then(response => {
+                    renderPedidos(response.data)
+                })
+                .catch(err => {
+                    console.error(err);
+                    Toastify({
+                        text: 'Não foi possível recuperar os pedidos.',
+                        duration: 3000
+                    }).showToast();
+                })
+                .finally(() => {
+                    loader.classList.add('hidden');
+                });
+        }
+
+        function atualizaPedidos() {
+            const loader = document.querySelector('.loader');
+            const bodyTabelaPedidos = document.querySelector('#tabelaPedidos tbody');
+
+            $('#modalNovoPedido').modal('hide');
+            bodyTabelaPedidos.innerHTML = '';
+            loader.classList.remove('hidden');
+            buscaPedidos();
         }
     </script>
 </body>

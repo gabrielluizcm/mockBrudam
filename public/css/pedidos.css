@@ -72,6 +72,10 @@ body {
     color: var(--faux-black);
 }
 
+.hidden {
+    display: none;
+}
+
 /* ----------------------- LOADER FROM https://uiverse.io/G4b413l/jolly-kangaroo-36 --------------------------- */
 
 .newtons-cradle {
