@@ -1,6 +1,8 @@
 
 # mockBrudam
 
+  
+
 Projeto em Laravel gerado com 
 ```console
 composer create-project
@@ -14,6 +16,7 @@ Clone o repositório localmente usando o seguinte comando no terminal
 $ git clone git@github.com:gabrielluizcm/mockBrudam.git
 ```
 ### Build 
+Após acessar o diretório da aplicação com `$ cd mockBrudam`
 - Instale as dependências via Composer
 ```console
 $ composer install
@@ -23,8 +26,10 @@ $ composer install
 $ docker-compose up -d
 ```
 ### *.env*
-O arquivo *.env* requer a seguinte configuração para acessar o banco no Docker
+O arquivo *.env* deve ser gerado a partir do modelo *.env.example*, e requer as seguintes alterações para acessar o banco no Docker e executar a aplicação corretamente
 ```
+APP_URL=http://localhost:8000
+...
 DB_CONNECTION=mysql
 DB_HOST=db
 DB_PORT=3306
@@ -43,7 +48,13 @@ Após gerar as estruturas, vamos usar o *Seeding* do Laravel para gerar registro
 ```console
 $ docker exec mockbrudam-app-1 php artisan db:seed
 ```
-Com isso, terminamos as configurações para rodar a aplicação, que pode ser acessada em [localhost:8000](http://localhost:8000)
+
+### Chave da Aplicação
+Com isso, resta apenas gerar a chave da aplicação com 
+```console
+$ php artisan key:generate
+```
+terminamos as configurações para rodar a aplicação, que pode ser acessada em [localhost:8000](http://localhost:8000)
 
 ## Uso
 A *home* da aplicação contém uma tabela simples que carrega via *axios* os dados dos pedidos armazenados no banco de dados. 
