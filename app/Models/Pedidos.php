@@ -21,6 +21,7 @@ class Pedidos extends Model
             DATE_FORMAT(p.updated_at, '%d/%m/%Y') as data_atualizacao
             FROM pedidos p
             JOIN clientes c ON c.id = p.id_cliente
+            ORDER BY p.id asc
         ";
         return DB::select(DB::raw($query));
     }
