@@ -58,5 +58,7 @@ terminamos as configurações para rodar a aplicação, que pode ser acessada em
 
 ## Uso
 A *home* da aplicação contém uma tabela simples que carrega via *axios* os dados dos pedidos armazenados no banco de dados. 
+
 Através do botão ***Novo pedido*** é possível abrir o *Modal* com o formulário para criação, onde deverá ser selecionado o cliente, além de informar a data de entrega, valor do pedido e valor do frete. **Todos** os campos são obrigatórios, caso algum não seja preenchido (ou preenchido incorretamente, como texto no campo de valor) a API retornará erro e não cadastrará o pedido.
+
 Caso ocorra um erro na criação, será informado via *toast* e gerará um *log* de erro no *Console*. De forma similar, ao criar um pedido com sucesso, este também será informado via *toast*, fechando automaticamente o *Modal* e atualizando a lista de pedidos, além de também gerar *log* no *Console* exibindo os dados inseridos no banco.
