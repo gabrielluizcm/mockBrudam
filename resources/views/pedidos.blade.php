@@ -81,13 +81,22 @@
             tdElements[0].textContent = pedido.id;
             tdElements[1].textContent = pedido.cliente;
             tdElements[2].textContent = pedido.data_entrega;
-            tdElements[3].textContent = pedido.valor_pedido;
-            tdElements[4].textContent = pedido.valor_frete;
+            tdElements[3].textContent = formataValor(pedido.valor_pedido);
+            tdElements[4].textContent = formataValor(pedido.valor_frete);
             tdElements[5].textContent = pedido.data_criacao;
             tdElements[6].textContent = pedido.data_atualizacao;
 
             bodyTabelaPedidos.appendChild(clone);
         })
+    }
+
+    function formataValor(valor) {
+        const BRL = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        });
+
+        return BRL.format(valor);
     }
 </script>
 
